@@ -8,7 +8,7 @@ res_grp = {
   rg2 = {
     name       = "rg_2"
     location   = "eastus"
-    managed_by = "aws"
+    managed_by = "gcp"
   }
 }
 
