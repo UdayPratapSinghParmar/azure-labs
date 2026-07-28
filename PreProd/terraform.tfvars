@@ -5,11 +5,11 @@ res_grp = {
     managed_by = "terraform"
   }
 
-  # rg2 = {
-  #   name       = "rg_2"
-  #   location   = "eastus"
-  #   managed_by = "aws"
-  # }
+  rg2 = {
+    name       = "rg_2"
+    location   = "eastus"
+    managed_by = "aws"
+  }
 }
 
 
