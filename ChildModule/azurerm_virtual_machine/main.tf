@@ -1,19 +1,21 @@
 
 data "azurerm_network_interface" "nic" {
-  name                = "frontendvm_nic"
-  resource_group_name = "rg_1"
-  location = "westus"
+  for_each =  var.nics
+  name                = each.value.name
+  resource_group_name = each.value.resource_group_name
+  location = each.value.location
 }
 
-data "azurerm_subnet" "subnet" {
-  name                 = "frontend_subnet"
-  virtual_network_name = "iana1_vnet"
-  resource_group_name  = "rg_1"
+data "azurerm_subnet" "subnets" {
+  for_each = var.nics
+  name                 = each.value.nic_subnet_name
+  virtual_network_name = each.value.nic_vnet_name
+  resource_group_name  = each.value.resource_group_name
 }
 
-data "azurerm_public_ip" "public_ip" {
-  name                = "pip_frontend"
-  resource_group_name = "rg_1"
+data "azurerm_public_ip" "pips" {
+  name                = each.value.nic_pip_name
+  resource_group_name = each.value.resource_group_name
 }
 
 
@@ -25,9 +27,9 @@ resource "azurerm_network_interface" "nics" {
 
   ip_configuration {
     name                          = "testconfiguration1"
-    subnet_id                     = azurerm_subnet.sub_data1[each.key].id
+    subnet_id                     = azurerm_subnet.subnets[each.key].id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id = azurerm_public_ip.pip1[each.key].id
+    public_ip_address_id = azurerm_public_ip.pips[each.key].id
 
   }
 
@@ -45,9 +47,13 @@ resource "azurerm_virtual_machine" "main" {
   resource_group_name   = each.value.resource_group_name
   network_interface_ids = [azurerm_network_interface.nics[each.key].id]
   vm_size               = each.value.vm_size
-  admin_username = each.value.admin_username
-  admin_password = each.value.admin_password
 
+  os_profile {
+    computer_name  = "hostname"
+    admin_username = each.value.admin_username1
+    admin_password = each.value.admin_password1
+  }
+  
 
   storage_os_disk {
      name              = "myosdisk1"

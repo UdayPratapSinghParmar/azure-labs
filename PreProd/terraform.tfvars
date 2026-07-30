@@ -5,11 +5,11 @@ res_grp = {
     managed_by = "terraform"
   }
 
-  rg2 = {
-    name       = "rg_2"
-    location   = "eastus"
-    managed_by = "gcp"
-  }
+  # rg2 = {
+  #   name       = "rg_2"
+  #   location   = "eastus"
+  #   managed_by = "gcp"
+  # }
 }
 
 
@@ -106,7 +106,7 @@ vms = {
   nic_pip_name = "frontend_pip"
   vm_name = "frontend_vm"
   vm_size = "Standard_D4_v5"
-  admin_username = "devopsadmin"
-  admin_password = "Devops@123"
+  admin_username1 = "devopsadmin"
+  admin_password1 = "Devops@123"
 }
 }

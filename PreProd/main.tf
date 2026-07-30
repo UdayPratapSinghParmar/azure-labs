@@ -16,6 +16,12 @@ module "subnet" {
   subnet     = var.subnetdev
 }
 
+module "publicip" {
+  depends_on = [module.resource_group]
+  source     = "../../ChildModule/azurerm_public_ip"
+  subnet     = var.subnetdev
+}
+
 module "virtual_machine" {
   depends_on = [module.resource_group, module.azurerm_network_interface]
   source     = "../../ChildModule/azurerm_virtual_machine"
