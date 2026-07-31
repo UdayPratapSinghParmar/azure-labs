@@ -108,5 +108,6 @@ vms = {
   vm_size = "Standard_D4_v5"
   admin_username1 = "devopsadmin"
   admin_password1 = "Devops@123"
+  #for VM creation
 }
 }
